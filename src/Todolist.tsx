@@ -67,8 +67,6 @@ export const Todolist = (props: TodolistPropsType) => {
                         props.changeTaskTitle(t.id, newValue, props.id)
                     }
 
-                    // TODO сделать чекбокс
-
                     return (
                         <div key={t.id} className={t.isDone ? 'isDone' : 'ести'}>
                             <Checkbox color="primary"
