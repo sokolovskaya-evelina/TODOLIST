@@ -1,14 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button, IconButton, TextField} from "@material-ui/core";
-import {AddBox, Delete} from "@material-ui/icons";
+import {IconButton, TextField} from "@material-ui/core";
+import {AddBox} from "@material-ui/icons";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
+    console.log('AddItemForm')
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
+
 
     const addTask = () => {
         if (title.trim() !== '') {
@@ -18,13 +20,16 @@ export function AddItemForm(props: AddItemFormPropsType) {
             setError('Title is required')
         }
     }
-    
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if(error!==null){
+            setError(null)
+        }
+
         if (e.charCode === 13) {
             addTask()
         }
@@ -45,4 +50,4 @@ export function AddItemForm(props: AddItemFormPropsType) {
             </IconButton>
         </div>
     )
-}
+})
