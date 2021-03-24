@@ -1,10 +1,9 @@
 import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import {Story, Meta} from '@storybook/react/types-6-0';
-import {AddItemForm, AddItemFormPropsType} from "../AddItemForm";
+import {Meta, Story} from '@storybook/react/types-6-0';
 import {action} from "@storybook/addon-actions";
 import {Task, TaskPropsType} from "../Task";
-import {TaskType} from "../Todolist";
+import {TaskStatuses, TodoTaskPriorities} from "../API/task-api";
 
 
 export default {
@@ -21,12 +20,26 @@ const Template: Story<TaskPropsType> = (args) => <div>
           changeTaskStatus={changeStatusCallback}
           changeTaskTitle={changeTitleCallback}
           removeTask={removeCallback}
-          task={{id: '1', isDone: true, title: 'CSS'}}/>
+          task={{id: '1', status: TaskStatuses.Completed, title: 'CSS',
+              todoListId: 'todolistId2',
+              addedDate: '',
+              deadline: '',
+              description: '',
+              startDate: '',
+              order: 0,
+              priority: TodoTaskPriorities.Low}}/>
     <Task todolistId={'todolist2'}
           changeTaskStatus={changeStatusCallback}
           changeTaskTitle={changeTitleCallback}
           removeTask={removeCallback}
-          task={{id: '2', isDone: false, title: 'JS'}}/>
+          task={{id: '2', status: TaskStatuses.New,
+              todoListId: 'todolistId2',
+              addedDate: '',
+              deadline: '',
+              description: '',
+              startDate: '',
+              order: 0,
+              priority: TodoTaskPriorities.Low, title: 'JS'}}/>
 </div>;
 
 export const TaskExample = Template.bind({});

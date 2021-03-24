@@ -1,67 +1,79 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {TaskType, Todolist} from "./Todolist";
+import {Todolist} from "./Todolist";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {
-    addTodolistAC,
+    addTodolistAC, addTodolistsTC,
     changeFilterTodolistAC,
-    changeTitleTodolistAC,
-    removeTodolistAC
+    changeTitleTodolistAC, changeTitleTodolistsTC,
+    fetchTodolistsTC,
+    FilterValueType,
+    removeTodolistsTC,
+    TodolistDomainType
 } from "./state/todolists_reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks_reducer";
+import {
+    addTasksTC,
+    changeTaskStatusAC,
+    changeTasksTitleTC,
+    changeTaskTitleAC,
+    removeTasksTC
+} from "./state/tasks_reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-
-export type FilterValueType = 'all' | 'active' | 'completed'
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValueType
-}
+import {TaskStatuses, TaskType} from "./API/task-api";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
 function AppWithRedux() {
-    const todolists = useSelector<AppRootStateType,Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType,TasksStateType>(state => state.tasks)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
+    useEffect(()=>{
+        dispatch(fetchTodolistsTC())
+    }, [])
+
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        dispatch(removeTaskAC(id, todolistId))
+        const thunk = removeTasksTC(id, todolistId)
+        dispatch(thunk)
+    }, [])
+
+
+    const addTask = useCallback(function (title: string, todolistId: string) {
+        const thunk = addTasksTC(todolistId, title)
+        dispatch(thunk)
     }, [dispatch])
 
-
-    const addTask= useCallback(function (title: string, todolistId: string) {
-        dispatch(addTaskAC(title,todolistId))
-    },[dispatch])
-
     const changeFilter = useCallback(function (value: FilterValueType, todolistId: string) {
-        dispatch(changeFilterTodolistAC(todolistId,value))
-    },[dispatch])
+        dispatch(changeFilterTodolistAC(todolistId, value))
+    }, [dispatch])
 
-    const changeStatus = useCallback(function (id: string, isDone: boolean, todolistId: string) {
-        dispatch(changeTaskStatusAC(id, isDone,todolistId))
-    },[dispatch])
+    const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
+        dispatch(changeTaskStatusAC(id, status, todolistId))
+    }, [])
 
     const changeTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        dispatch(changeTaskTitleAC(id,newTitle,todolistId))
-    },[dispatch])
+        dispatch(changeTasksTitleTC(id, newTitle, todolistId))
+    }, [])
 
     const changeTodolistTitle = useCallback(function (id: string, newTitle: string) {
-        dispatch(changeTitleTodolistAC(id,newTitle))
-    },[dispatch])
+        const thunk = changeTitleTodolistsTC(id, newTitle)
+        dispatch(thunk)
+    }, [])
 
-    const removeTodolist=useCallback (function  (todolistId: string) {
-        dispatch(removeTodolistAC(todolistId))
-    },[dispatch])
+    const removeTodolist = useCallback(function (todolistId: string) {
+        const thunk = removeTodolistsTC(todolistId)
+        dispatch(thunk)
+    }, [dispatch])
 
-    const addTodolist =useCallback(  (title: string)=> {
-        dispatch(addTodolistAC(title))
-    },[dispatch])
+    const addTodolist = useCallback((title: string) => {
+        const thunk = addTodolistsTC(title)
+        dispatch(thunk)
+    }, [dispatch])
 
 
     return (
