@@ -5,7 +5,7 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import {TaskStatuses, TaskType, TodoTaskPriorities} from "./API/task-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "./API/task-api";
 import {FilterValueType, TodolistDomainType} from "./state/todolists_reducer";
 
 
@@ -35,7 +35,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(),
@@ -47,7 +47,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(),
@@ -59,7 +59,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(),
@@ -71,7 +71,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(),
@@ -83,7 +83,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             }
         ],
         [todolistId2]: [
@@ -97,7 +97,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(),
@@ -109,7 +109,7 @@ function App() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             }
         ]
     })
@@ -130,7 +130,7 @@ function App() {
             description: '',
             startDate: '',
             order: 0,
-            priority: TodoTaskPriorities.Low}
+            priority: TaskPriorities.Low}
         let tasks = tasksObj[todolistId]
         let newTasks = [task, ...tasks]
         tasksObj[todolistId] = newTasks

@@ -3,17 +3,18 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
-import {AppBar, Button, IconButton, Typography, Toolbar, Container, Grid, Paper} from "@material-ui/core";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {
     addTodolistAC,
     changeFilterTodolistAC,
-    changeTitleTodolistAC, FilterValueType,
+    changeTitleTodolistAC,
+    FilterValueType,
     removeTodolistAC,
     todolistsReducer
 } from "./state/todolists_reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks_reducer";
-import {TaskStatuses, TodoTaskPriorities} from "./API/task-api";
+import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "./state/tasks_reducer";
+import {TaskPriorities, TaskStatuses} from "./API/task-api";
 
 
 function AppWithReducers() {
@@ -27,7 +28,7 @@ function AppWithReducers() {
             todoListId: todolistId,
             title: 'juce',
             status: TaskStatuses.New,
-            priority: TodoTaskPriorities.Low,
+            priority: TaskPriorities.Low,
             order: 0,
             startDate: '',
             description: '',
@@ -42,11 +43,11 @@ function AppWithReducers() {
     }
 
     function changeStatus(id: string, status: TaskStatuses, todolistId: string) {
-        dispatchToTasks(changeTaskStatusAC(id, status, todolistId))
+        dispatchToTasks(updateTaskAC(id, {status}, todolistId))
     }
 
     function changeTitle(id: string, newTitle: string, todolistId: string) {
-        dispatchToTasks(changeTaskTitleAC(id, newTitle, todolistId))
+        dispatchToTasks(updateTaskAC(id, {title: newTitle}, todolistId))
     }
 
     function changeTodolistTitle(id: string, newTitle: string) {
@@ -76,7 +77,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(), title: "JS", status: TaskStatuses.Completed,
@@ -86,7 +87,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(), title: "ReactJS", status: TaskStatuses.Completed,
@@ -96,7 +97,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(), title: "Rest API", status: TaskStatuses.Completed,
@@ -106,7 +107,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(), title: "GraphQL", status: TaskStatuses.Completed,
@@ -116,7 +117,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             }
         ],
         [todolistId2]: [
@@ -128,7 +129,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             },
             {
                 id: v1(), title: "Bred", status: TaskStatuses.Completed,
@@ -138,7 +139,7 @@ function AppWithReducers() {
                 description: '',
                 startDate: '',
                 order: 0,
-                priority: TodoTaskPriorities.Low
+                priority: TaskPriorities.Low
             }
         ]
     })

@@ -2,7 +2,7 @@ import React from 'react';
 import {Meta, Story} from '@storybook/react/types-6-0';
 import {action} from "@storybook/addon-actions";
 import {Task, TaskPropsType} from "../Task";
-import {TaskStatuses, TodoTaskPriorities} from "../API/task-api";
+import {TaskStatuses, TaskPriorities} from "../API/task-api";
 
 
 export default {
@@ -34,7 +34,7 @@ TaskIsDoneExample.args = {
         description: '',
         startDate: '',
         order: 0,
-        priority: TodoTaskPriorities.Low, title: 'CSS'},
+        priority: TaskPriorities.Low, title: 'CSS'},
     todolistId: 'todolist1'
 };
 export const TaskIsNotDoneExample = Template.bind({});
@@ -47,6 +47,6 @@ TaskIsNotDoneExample.args = {
         description: '',
         startDate: '',
         order: 0,
-        priority: TodoTaskPriorities.Low, title: 'JS'},
+        priority: TaskPriorities.Low, title: 'JS'},
     todolistId: 'todolist2'
 };

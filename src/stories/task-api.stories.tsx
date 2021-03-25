@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {taskAPI, TaskStatuses, TodoTaskPriorities} from "../API/task-api";
+import {taskAPI, TaskStatuses, TaskPriorities} from "../API/task-api";
 
 export default {
     title: 'API'
@@ -69,7 +69,7 @@ export const UpdateTasksTitle = () => {
         taskAPI.updateTasks(taskId,todolistId, {
             title: title,
             startDate: '',
-            priority: TodoTaskPriorities.Low,
+            priority: TaskPriorities.Low,
             description: '',
             deadline: '',
             status: TaskStatuses.New,
