@@ -1,5 +1,5 @@
 import React from 'react';
-import {Task, TaskPropsType} from "../Task";
+import {Task, TaskPropsType} from "../features/TodolistsList/Todolist/Task/Task";
 import {TaskPriorities, TaskStatuses} from "../API/task-api";
 import {Meta, Story} from "@storybook/react";
 // @ts-ignore

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {TodolistDomainType} from "../state/todolists_reducer";
+import {TodolistDomainType} from "../features/TodolistsList/todolists_reducer";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -9,18 +9,7 @@ const instance = axios.create({
     }
 })
 
-export type TodolistType= {
-    id: string
-    addedDate: string
-    order: number
-    title: string
-}
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    data: D
-}
-
+//API
 export const todolistAPI = {
     getTodolist() {
         return  instance.get<Array<TodolistDomainType>>(`todo-lists/`)
@@ -34,4 +23,17 @@ export const todolistAPI = {
     updateTodolist(todolistId: string, title: string) {
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title: title})
     }
+}
+
+//types
+export type TodolistType= {
+    id: string
+    addedDate: string
+    order: number
+    title: string
+}
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
 }
