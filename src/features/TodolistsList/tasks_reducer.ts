@@ -2,7 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType}
 import {taskAPI, TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType} from "../../API/task-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../App/store";
-import {setError, setErrorActionType, setStatus, setStatusActionType} from "../../App/app-reducer";
+import {setAppError, setErrorActionType, setAppStatus, setStatusActionType} from "../../App/app-reducer";
 
 const initialState: TasksStateType = {}
 
@@ -59,12 +59,12 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
 
 //thunks
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionType | setStatusActionType>) => {
-    dispatch(setStatus('loading'))
+    dispatch(setAppStatus('loading'))
     taskAPI.getTasks(todolistId)
         .then((res) => {
             const tasks = res.data.items
             dispatch(setTasksAC(tasks, todolistId))
-            dispatch(setStatus('succeeded'))
+            dispatch(setAppStatus('succeeded'))
         })
 }
 export const removeTasksTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionType>) => {
@@ -75,20 +75,20 @@ export const removeTasksTC = (taskId: string, todolistId: string) => (dispatch: 
         })
 }
 export const addTasksTC = (todolistId: string, title: string) => (dispatch: Dispatch<ActionType | setErrorActionType | setStatusActionType>) => {
-    dispatch(setStatus('loading'))
+    dispatch(setAppStatus('loading'))
     taskAPI.createTasks(todolistId, title)
         .then((res) => {
             if (res.data.resultCode === 0) {
                 const action = addTaskAC(res.data.data.item)
                 dispatch(action)
-                dispatch(setStatus('succeeded'))
+                dispatch(setAppStatus('succeeded'))
             } else {
                 if (res.data.messages.length) {
-                    dispatch(setError(res.data.messages[0]))
+                    dispatch(setAppError(res.data.messages[0]))
                 } else {
-                    dispatch(setError('Some error occurred'))
+                    dispatch(setAppError('Some error occurred'))
                 }
-                dispatch(setStatus('failed'))
+                dispatch(setAppStatus('failed'))
             }
         })
 }
