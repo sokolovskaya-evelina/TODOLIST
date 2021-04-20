@@ -11,15 +11,15 @@ const instance = axios.create({
 //API
 export const taskAPI = {
     getTasks(todolistId: string) {
-        return  instance.get<GetTasksResponse>(`${todolistId}/tasks`)
+        return instance.get<GetTasksResponse>(`${todolistId}/tasks`)
     },
     deleteTasks(taskId: string, todolistId: string) {
-        return  instance.delete<ResponseTaskType>(`${todolistId}/tasks/${taskId}`)
+        return instance.delete<ResponseTaskType>(`${todolistId}/tasks/${taskId}`)
     },
     createTasks(todolistId: string, title: string) {
-        return instance.post<ResponseTaskType<{item: TaskType}>>(`${todolistId}/tasks`, {title: title})
+        return instance.post<ResponseTaskType<{ item: TaskType }>>(`${todolistId}/tasks`, {title: title})
     },
-    updateTasks(taskId: string, todolistId: string, model:UpdateTaskModelType) {
+    updateTasks(taskId: string, todolistId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseTaskType<TaskType>>(`${todolistId}/tasks/${taskId}`, model)
     }
 }
@@ -37,12 +37,14 @@ export type TaskType = {
     order: number
     addedDate: string
 }
-export enum TaskStatuses  {
+
+export enum TaskStatuses {
     New,
     InProgress,
     Completed,
     Draft
 }
+
 export enum TaskPriorities {
     Low,
     Middle,
@@ -50,6 +52,7 @@ export enum TaskPriorities {
     Urgently,
     Later
 }
+
 export type UpdateTaskModelType = {
     title: string
     description: string

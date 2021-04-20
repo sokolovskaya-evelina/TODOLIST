@@ -27,7 +27,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if(error!==null){
+        if (error !== null) {
             setError(null)
         }
 

@@ -12,16 +12,16 @@ export type TaskPropsType = {
     task: TaskType
 }
 export const Task = React.memo((props: TaskPropsType) => {
-    const onClickHandler =() => {
+    const onClickHandler = () => {
         props.removeTask(props.task.id, props.todolistId)
     }
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
-        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New , props.todolistId)
+        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
     }
     const onChangeTitleHandler = useCallback((newValue: string) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistId)
-    },[props.task.id, props.todolistId, props.changeTaskTitle])
+    }, [props.task.id, props.todolistId, props.changeTaskTitle])
 
     return (
         <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'isDone' : ''}>

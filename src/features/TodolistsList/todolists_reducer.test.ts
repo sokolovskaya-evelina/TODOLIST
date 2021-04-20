@@ -1,7 +1,8 @@
 import {
     addTodolistAC,
     changeFilterTodolistAC,
-    changeTitleTodolistAC, changeTodolistEntityStatusAC,
+    changeTitleTodolistAC,
+    changeTodolistEntityStatusAC,
     FilterValueType,
     removeTodolistAC,
     setTodolistsAC,

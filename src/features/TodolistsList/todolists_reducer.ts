@@ -16,7 +16,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case 'CHANGE-TODOLIST-FILTER':
             return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
         case "CHANGE-TODOLIST-ENTITY-STATUS":
-             return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
+            return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
         case 'SET-TODOLISTS': {
             return action.todolists.map(tl => ({...tl, filter: 'all', entityStatus: "idle"}))
         }
@@ -44,14 +44,14 @@ export const setTodolistsAC = (todolists: Array<TodolistDomainType>) =>
 export const fetchTodolistsTC = () => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatus('loading'))
     todolistAPI.getTodolist()
-            .then((res) => {
-                dispatch(setTodolistsAC(res.data))
-                dispatch(setAppStatus('succeeded'))
-            })
-        .catch((error)=>{
-            handleNetworkAppError(error,dispatch)
+        .then((res) => {
+            dispatch(setTodolistsAC(res.data))
+            dispatch(setAppStatus('succeeded'))
         })
-    }
+        .catch((error) => {
+            handleNetworkAppError(error, dispatch)
+        })
+}
 export const removeTodolistsTC = (todolistId: string) => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatus('loading'))
     dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
@@ -61,8 +61,8 @@ export const removeTodolistsTC = (todolistId: string) => (dispatch: ThunkDispatc
             dispatch(setAppStatus('succeeded'))
             handleServerAppError(res.data, dispatch)
         })
-        .catch((error)=>{
-            handleNetworkAppError(error,dispatch)
+        .catch((error) => {
+            handleNetworkAppError(error, dispatch)
         })
 }
 export const addTodolistsTC = (title: string) => (dispatch: ThunkDispatch) => {
@@ -73,8 +73,8 @@ export const addTodolistsTC = (title: string) => (dispatch: ThunkDispatch) => {
             dispatch(setAppStatus('succeeded'))
             handleServerAppError(res.data, dispatch)
         })
-        .catch((error)=>{
-            handleNetworkAppError(error,dispatch)
+        .catch((error) => {
+            handleNetworkAppError(error, dispatch)
         })
 }
 export const changeTitleTodolistsTC = (id: string, title: string) => (dispatch: ThunkDispatch) => {
@@ -83,8 +83,8 @@ export const changeTitleTodolistsTC = (id: string, title: string) => (dispatch: 
             dispatch(changeTitleTodolistAC(id, title))
             handleServerAppError(res.data, dispatch)
         })
-        .catch((error)=>{
-            handleNetworkAppError(error,dispatch)
+        .catch((error) => {
+            handleNetworkAppError(error, dispatch)
         })
 }
 

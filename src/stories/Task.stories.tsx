@@ -20,26 +20,30 @@ const Template: Story<TaskPropsType> = (args) => <div>
           changeTaskStatus={changeStatusCallback}
           changeTaskTitle={changeTitleCallback}
           removeTask={removeCallback}
-          task={{id: '1', status: TaskStatuses.Completed, title: 'CSS',
+          task={{
+              id: '1', status: TaskStatuses.Completed, title: 'CSS',
               todoListId: 'todolistId2',
               addedDate: '',
               deadline: '',
               description: '',
               startDate: '',
               order: 0,
-              priority: TaskPriorities.Low}}/>
+              priority: TaskPriorities.Low
+          }}/>
     <Task todolistId={'todolist2'}
           changeTaskStatus={changeStatusCallback}
           changeTaskTitle={changeTitleCallback}
           removeTask={removeCallback}
-          task={{id: '2', status: TaskStatuses.New,
+          task={{
+              id: '2', status: TaskStatuses.New,
               todoListId: 'todolistId2',
               addedDate: '',
               deadline: '',
               description: '',
               startDate: '',
               order: 0,
-              priority: TaskPriorities.Low, title: 'JS'}}/>
+              priority: TaskPriorities.Low, title: 'JS'
+          }}/>
 </div>;
 
 export const TaskExample = Template.bind({});
