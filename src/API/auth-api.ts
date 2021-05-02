@@ -21,10 +21,13 @@ export const authAPI = {
     }
 }
 
+
 //types
+export type FieldErrorType = { field: string, error: string };
 export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
+    fieldsErrors?: Array<FieldErrorType>
     data: D
 }
 export type LoginParamsType = {
